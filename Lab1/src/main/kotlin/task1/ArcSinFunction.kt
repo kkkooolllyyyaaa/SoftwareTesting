@@ -16,7 +16,7 @@ class ArcSinFunction {
             for (i in 0..n.toInt()) {
                 val numerator = factorial(2 * i)
                 val denominator = 4.0.pow(i.toDouble()) * factorial(i).toDouble().pow(2.0) * (2 * i + 1)
-                res += x.pow(2 * n + 1) * (numerator / denominator)
+                res += x.pow(2 * i + 1) * (numerator / denominator)
             }
             return res;
         }
