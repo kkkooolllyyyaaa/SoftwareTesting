@@ -2,7 +2,7 @@ package exceptions
 
 import java.lang.RuntimeException
 
-class NumberDoesNotCorrespondToTheDataAreaException(message: String) : RuntimeException() {
+class NumberDoesNotCorrespondToTheDataAreaException : RuntimeException() {
     init {
         super.message
     }

@@ -8,7 +8,7 @@ class ArcSinFunction {
         private var cache = hashMapOf<Int, Int>()
         fun calculate(x: Double, n: Double): Double {
             if (x < -1 || x > 1) {
-                throw NumberDoesNotCorrespondToTheDataAreaException("The number does not correspond to the data area!");
+                throw NumberDoesNotCorrespondToTheDataAreaException();
             }
             if (n == 0.0)
                 return x;
