@@ -20,6 +20,7 @@ dependencies {
 
     testImplementation(kotlin("test"))
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.1.0")
+    testImplementation("io.mockk:mockk:1.12.1")
     implementation("org.assertj:assertj-core:3.11.0")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.1.0")

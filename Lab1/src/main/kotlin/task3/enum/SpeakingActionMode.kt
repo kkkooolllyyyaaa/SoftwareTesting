@@ -1,6 +1,6 @@
 package task3.enum
 
-enum class ReadMode(val humanReadableRu: String) {
+enum class SpeakingActionMode(val humanReadableRu: String) {
     ALOUD("в слух"),
     SILENTLY("про себя"),
 }

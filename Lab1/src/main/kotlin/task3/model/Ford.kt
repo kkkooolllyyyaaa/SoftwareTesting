@@ -1,16 +1,18 @@
 package task3.model
 
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import task3.enum.ReadMode
+import task3.log.Logger
 import java.time.Duration
 
 class Ford private constructor() {
     private var readingState: ReadingState? = null
 
     companion object {
+        const val LOGGER_NAME = "FORD"
+        const val ACTION_SOURCE_NAME = "FORD"
+
         private var instance: Ford? = null
         fun getInstance(): Ford {
             if (instance == null) {
@@ -20,17 +22,23 @@ class Ford private constructor() {
         }
     }
 
-    fun startReading(mode: ReadMode, duration: Duration): Job {
-        println("Форд начал читать ${mode.humanReadableRu} на протяжении ${duration.seconds} секунд")
-        val job = runBlocking {
-            return@runBlocking launch {
-                readingState = ReadingState(mode, true)
-                delay(duration.toMillis())
-                readingState?.isReadingNow = false
-                println("Форд закончил читать")
+    suspend fun performSpeakingActionManyTimes(
+        speakingAction: SpeakingAction,
+        times: Int,
+    ): SpeakingAction {
+        Logger.log(LOGGER_NAME, "Start counting for $times seconds")
+
+        val job = GlobalScope.launch {
+            readingState = ReadingState(speakingAction.mode, true)
+            repeat(times) {
+                speakingAction.perform((it + 1).toString())
+                delay(Duration.ofSeconds(1).toMillis())
             }
+            readingState?.isReadingNow = false
+            Logger.log(LOGGER_NAME, "Finish reading")
         }
-        return job
+        speakingAction.job = job
+        return speakingAction
     }
 
     fun isStillReading() = readingState?.isReadingNow ?: false
