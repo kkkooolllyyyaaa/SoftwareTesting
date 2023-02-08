@@ -3,10 +3,7 @@ package task3.model
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import task3.enum.SpeakingActionCharacterization
-import task3.enum.SpeakingActionMode
-import task3.enum.SpeakingActionType
-import task3.log.LogJournal
+import task3.log.Logger
 import java.time.Duration
 
 class Ford private constructor() {
@@ -25,26 +22,23 @@ class Ford private constructor() {
         }
     }
 
-    suspend fun startCountingAloud(count: Int): SpeakingAction {
-        val mode = SpeakingActionMode.ALOUD
-        println("Форд начал cчитать ${mode.humanReadableRu} на протяжении $count секунд")
-        LogJournal.log(LOGGER_NAME, "Start reading for $count seconds")
+    suspend fun performSpeakingActionManyTimes(
+        speakingAction: SpeakingAction,
+        times: Int,
+    ): SpeakingAction {
+        Logger.log(LOGGER_NAME, "Start counting for $times seconds")
+
         val job = GlobalScope.launch {
-            readingState = ReadingState(mode, true)
-            repeat(count) {
-                LogJournal.log(LOGGER_NAME, "${it + 1}")
+            readingState = ReadingState(speakingAction.mode, true)
+            repeat(times) {
+                speakingAction.perform((it + 1).toString())
                 delay(Duration.ofSeconds(1).toMillis())
             }
             readingState?.isReadingNow = false
-            println("Форд закончил cчитать")
-            LogJournal.log(LOGGER_NAME, "Finish reading")
+            Logger.log(LOGGER_NAME, "Finish reading")
         }
-        return SpeakingAction(
-            sourceName = ACTION_SOURCE_NAME,
-            job = job,
-            type = SpeakingActionType.COUNT,
-            mode = mode,
-        )
+        speakingAction.job = job
+        return speakingAction
     }
 
     fun isStillReading() = readingState?.isReadingNow ?: false

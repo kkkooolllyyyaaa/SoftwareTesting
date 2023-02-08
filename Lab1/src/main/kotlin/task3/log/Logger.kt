@@ -1,14 +1,16 @@
 package task3.log
 
-class LogJournal private constructor() {
+import org.jetbrains.annotations.TestOnly
+
+class Logger private constructor() {
     private val logsList = mutableListOf<Pair<String, String>>()
 
     companion object {
-        private var instance: LogJournal? = null
+        private var instance: Logger? = null
 
-        fun getInstance(): LogJournal {
+        fun getInstance(): Logger {
             if (instance == null) {
-                instance = LogJournal()
+                instance = Logger()
             }
             return instance!!
         }
@@ -19,6 +21,11 @@ class LogJournal private constructor() {
 
         fun getLogs(): String {
             return getInstance().logsList.joinToString(separator = "\n") { "${it.first}: ${it.second}" }
+        }
+
+        @TestOnly
+        fun clear() {
+            getInstance().logsList.clear()
         }
     }
 }
