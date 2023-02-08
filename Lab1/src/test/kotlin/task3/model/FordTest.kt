@@ -1,20 +1,16 @@
 package task3.model
 
 import io.mockk.clearAllMocks
-import io.mockk.coVerify
 import io.mockk.junit5.MockKExtension
-import io.mockk.mockk
-import io.mockk.verify
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.ValueSource
-import task3.log.LogJournalTest
+import task3.enum.SpeakingActionMode
+import task3.enum.SpeakingActionType
 import task3.log.Logger
-import java.util.stream.IntStream
 
 @ExtendWith(value = [MockKExtension::class])
 internal class FordTest {
@@ -28,25 +24,38 @@ internal class FordTest {
 
     @Test
     fun `assert singleton`() {
-        Assertions.assertThat(
+        assertThat(
             ford === Ford.getInstance()
         )
 
-        Assertions.assertThat(
+        assertThat(
             Ford.getInstance() === Ford.getInstance()
         )
     }
 
-    @ParameterizedTest
-    @ValueSource(ints = [1, 3])
-    fun `startCountingAloud calls speakingAction N times`(times: Int) {
-        val speakingAction = mockk<SpeakingAction>(relaxed = true)
+    @Test
+    fun `Ford performSpeakingActionManyTimes N times`(): Unit = runBlocking {
+        val times = 3
+        val speakingAction = SpeakingAction(
+            sourceName = Ford.ACTION_SOURCE_NAME,
+            mode = SpeakingActionMode.ALOUD,
+            type = SpeakingActionType.COUNT,
+        )
 
-        runBlocking {
-            val action = Ford.getInstance().performSpeakingActionManyTimes(speakingAction, times)
-            action.job!!.join()
-        }
-        println(Logger.getLogs())
-//        verify(atLeast = 1, atMost = 1) { speakingAction.perform }
+        val action = Ford.getInstance().performSpeakingActionManyTimes(speakingAction, times)
+        delay(100)
+        assertThat(Ford.getInstance().isStillReading()).isEqualTo(true)
+        action.job!!.join()
+        assertThat(Ford.getInstance().isStillReading()).isEqualTo(false)
+
+        assertThat(Logger.getLogs()).isEqualTo(
+            """
+                FORD: Start counting for 3 seconds
+                FORD: FORD COUNT ALOUD `1`
+                FORD: FORD COUNT ALOUD `2`
+                FORD: FORD COUNT ALOUD `3`
+                FORD: Finish reading
+            """.trimIndent()
+        )
     }
 }
