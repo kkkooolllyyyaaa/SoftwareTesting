@@ -2,6 +2,7 @@ package task3.model
 
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import task3.enum.AggressiveRate
 import task3.enum.SpeakingActionMode
@@ -10,6 +11,10 @@ import task3.flow.mapToAggressiveRate
 import task3.log.Logger
 
 internal class ComputerTest {
+    @BeforeEach
+    fun tearUp() {
+        Logger.clear()
+    }
 
     @Test
     fun `assert singleton`() {
@@ -25,7 +30,6 @@ internal class ComputerTest {
 
     @Test
     fun `applyAction works`(): Unit = runBlocking {
-        Logger.clear()
         val speakingAction = SpeakingAction(
             sourceName = Ford.ACTION_SOURCE_NAME,
             mode = SpeakingActionMode.ALOUD,

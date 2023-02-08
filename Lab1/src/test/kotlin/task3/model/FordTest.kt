@@ -18,6 +18,7 @@ internal class FordTest {
 
     @BeforeEach
     fun tearUp() {
+        Logger.clear()
         ford = Ford.getInstance()
         clearAllMocks()
     }
