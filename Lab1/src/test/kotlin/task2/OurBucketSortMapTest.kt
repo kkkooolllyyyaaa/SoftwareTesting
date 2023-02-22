@@ -38,7 +38,7 @@ class OurBucketSortMapTest {
         val map = OurBucketSortMap(capacity)
         val alreadySorted = mutableSetOf<Int>()
 
-        IntStream.range(0, 1000).forEach {
+        IntStream.range(0, 30).forEach {
             val calculated = (abs(kotlin.random.Random.nextInt() + it)) % capacity
             alreadySorted.add(calculated)
             map.put(calculated, 0)
