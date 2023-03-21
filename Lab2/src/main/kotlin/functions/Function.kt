@@ -1,7 +1,7 @@
 package functions
 
-import functions.base.Cosine
 import functions.base.NaturalLogarithm
+import functions.nonbase.Cosine
 import functions.nonbase.Logarithm
 import java.math.BigDecimal
 

@@ -1,6 +1,7 @@
 package functions.base
 
 import Constants
+import Constants.SCALE
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
@@ -21,7 +22,7 @@ class SinusTest {
 
     @Test
     fun `sin pi div 6`() {
-        val x = Constants.Numbers.PI.divide(6.0.toBigDecimal(), 10, RoundingMode.HALF_UP)
+        val x = Constants.Numbers.PI.divide(6.0.toBigDecimal(), SCALE, RoundingMode.HALF_UP)
         assertAlmostEqual(
             actual = sin.valueDecomposed(x, eps = 0.000001.toBigDecimal()),
             expected = 0.5,
@@ -30,7 +31,7 @@ class SinusTest {
 
     @Test
     fun `sin pi div 3`() {
-        val x = Constants.Numbers.PI.divide(3.0.toBigDecimal(), 10, RoundingMode.HALF_UP)
+        val x = Constants.Numbers.PI.divide(3.0.toBigDecimal(), SCALE, RoundingMode.HALF_UP)
         assertAlmostEqual(
             actual = sin.valueDecomposed(x, eps = 0.000001.toBigDecimal()),
             expected = 0.866025,
@@ -39,7 +40,7 @@ class SinusTest {
 
     @Test
     fun `sin pi div 4`() {
-        val x = Constants.Numbers.PI.divide(4.0.toBigDecimal(), 10, RoundingMode.HALF_UP)
+        val x = Constants.Numbers.PI.divide(4.0.toBigDecimal(), SCALE, RoundingMode.HALF_UP)
         assertAlmostEqual(
             actual = sin.valueDecomposed(x, eps = 0.000001.toBigDecimal()),
             expected = 0.70710,
@@ -48,7 +49,7 @@ class SinusTest {
 
     @Test
     fun `sin pi div 2`() {
-        val x = Constants.Numbers.PI.divide(2.0.toBigDecimal(), 10, RoundingMode.HALF_UP)
+        val x = Constants.Numbers.PI.divide(2.0.toBigDecimal(), SCALE, RoundingMode.HALF_UP)
         assertAlmostEqual(
             actual = sin.valueDecomposed(x, eps = 0.000001.toBigDecimal()),
             expected = 1.0,

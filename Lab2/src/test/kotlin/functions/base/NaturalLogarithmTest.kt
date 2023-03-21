@@ -1,5 +1,6 @@
 package functions.base
 
+import Constants.SCALE
 import org.junit.jupiter.api.Test
 import java.math.RoundingMode
 import kotlin.random.Random
@@ -19,8 +20,8 @@ class NaturalLogarithmTest {
             println(
                 """
                        x = $cur
-                       y = ${result.setScale(5, RoundingMode.HALF_UP)}
-                expected = ${expected.setScale(5, RoundingMode.HALF_UP)}
+                       y = ${result.setScale(SCALE, RoundingMode.HALF_UP)}
+                expected = ${expected.setScale(SCALE, RoundingMode.HALF_UP)}
                 
                 """.trimIndent()
             )
@@ -40,8 +41,8 @@ class NaturalLogarithmTest {
             println(
                 """
                        x = $cur
-                       y = ${result.setScale(5, RoundingMode.HALF_UP)}
-                expected = ${expected.setScale(5, RoundingMode.HALF_UP)}
+                       y = ${result.setScale(SCALE, RoundingMode.HALF_UP)}
+                expected = ${expected.setScale(SCALE, RoundingMode.HALF_UP)}
                 
                 """.trimIndent()
             )

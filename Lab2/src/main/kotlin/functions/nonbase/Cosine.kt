@@ -1,6 +1,7 @@
-package functions
+package functions.nonbase
 
 import Constants
+import functions.MathFunction
 import functions.base.Sinus
 import java.math.BigDecimal
 import kotlin.math.cos
