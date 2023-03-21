@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.ValueSource
 import util.assertAlmostEqual
 import java.math.BigDecimal
 import java.math.RoundingMode
+import kotlin.random.Random
 
 class SinusTest {
     val sin = Sinus()
@@ -71,5 +72,16 @@ class SinusTest {
             actual = -sin.valueDecomposed(source.toBigDecimal()),
             expected = sin.valueDecomposed((-source).toBigDecimal()),
         )
+    }
+
+    @Test
+    fun `random test`() {
+        IntRange(0, 100).forEach {
+            val x = Random.nextDouble(-1000.0, 1000.0).toBigDecimal()
+            assertAlmostEqual(
+                actual = sin.valueDecomposed(x),
+                expected = sin.value(x),
+            )
+        }
     }
 }

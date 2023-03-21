@@ -3,22 +3,22 @@ package functions.base
 import functions.MathFunction
 import java.math.BigDecimal
 import java.math.RoundingMode
-import kotlin.math.cos
+import kotlin.math.sin
 
 class Sinus : MathFunction {
     override fun value(x: BigDecimal): BigDecimal {
-        return cos(x.toDouble()).toBigDecimal()
+        return sin(x.toDouble()).toBigDecimal()
     }
 
     override fun valueDecomposed(x: BigDecimal, eps: BigDecimal): BigDecimal {
         val pi2 = 2 * Math.PI
         var xDouble = x.toDouble()
 
+        while (xDouble < pi2) {
+            xDouble += pi2;
+        }
         while (xDouble > pi2) {
             xDouble -= pi2
-        }
-        while (xDouble < -pi2) {
-            xDouble += pi2
         }
 
         var i = 0
