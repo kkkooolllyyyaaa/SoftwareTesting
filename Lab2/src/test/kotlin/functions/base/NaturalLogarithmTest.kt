@@ -19,8 +19,8 @@ class NaturalLogarithmTest {
             println(
                 """
                        x = $cur
-                       y = ${result.setScale(5, RoundingMode.UP)}
-                expected = ${expected.setScale(5, RoundingMode.UP)}
+                       y = ${result.setScale(5, RoundingMode.HALF_UP)}
+                expected = ${expected.setScale(5, RoundingMode.HALF_UP)}
                 
                 """.trimIndent()
             )
@@ -40,8 +40,8 @@ class NaturalLogarithmTest {
             println(
                 """
                        x = $cur
-                       y = ${result.setScale(5, RoundingMode.UP)}
-                expected = ${expected.setScale(5, RoundingMode.UP)}
+                       y = ${result.setScale(5, RoundingMode.HALF_UP)}
+                expected = ${expected.setScale(5, RoundingMode.HALF_UP)}
                 
                 """.trimIndent()
             )

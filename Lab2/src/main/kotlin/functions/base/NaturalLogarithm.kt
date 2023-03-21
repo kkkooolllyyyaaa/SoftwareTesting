@@ -43,9 +43,9 @@ class NaturalLogarithm(private val scale: Int = 5) : MathFunction {
         assertX(x)
 
         val constant = ((x - BigDecimal.ONE).pow(2))
-            .divide((x + BigDecimal.ONE).pow(2), scale, RoundingMode.UP)
+            .divide((x + BigDecimal.ONE).pow(2), scale, RoundingMode.HALF_UP)
         var currentValue = (x - BigDecimal.ONE)
-            .divide((x + BigDecimal.ONE), scale, RoundingMode.UP)
+            .divide((x + BigDecimal.ONE), scale, RoundingMode.HALF_UP)
 
         var sum = BigDecimal.ZERO
         var step = 1
@@ -54,7 +54,7 @@ class NaturalLogarithm(private val scale: Int = 5) : MathFunction {
             return if (n != null) {
                 step <= n
             } else if (eps != null) {
-                currentValue.abs() > eps.divide(Constants.Numbers.TWO, scale, RoundingMode.UP)
+                currentValue.abs() > eps.divide(Constants.Numbers.TWO, scale, RoundingMode.HALF_UP)
             } else {
                 false
             }
