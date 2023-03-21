@@ -5,7 +5,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import kotlin.math.cos
 
-class Sinus() : MathFunction {
+class Sinus : MathFunction {
     override fun value(x: BigDecimal): BigDecimal {
         return cos(x.toDouble()).toBigDecimal()
     }
@@ -34,6 +34,28 @@ class Sinus() : MathFunction {
         return sum.setScale(eps.scale(), RoundingMode.HALF_UP)
     }
 
+    override fun valueDecomposed(x: BigDecimal, n: Int): BigDecimal {
+        val pi2 = 2 * Math.PI
+        var xDouble = x.toDouble()
+
+        while (xDouble > pi2) {
+            xDouble -= pi2
+        }
+        while (xDouble < -pi2) {
+            xDouble += pi2
+        }
+
+        var i = 0
+        var sum = BigDecimal.ZERO
+
+        do {
+            val allProd = prod(xDouble, 2 * i + 1)
+            sum += minusOnePow(i).multiply(allProd)
+            i++
+        } while (i < n)
+        return sum
+    }
+
     private fun minusOnePow(n: Int): BigDecimal {
         return BigDecimal.valueOf((1 - n % 2 * 2).toLong())
     }
@@ -44,9 +66,5 @@ class Sinus() : MathFunction {
             accum = accum.multiply(BigDecimal(x / i))
         }
         return accum
-    }
-
-    override fun valueDecomposed(x: BigDecimal, n: Int): BigDecimal {
-        throw NotImplementedError()
     }
 }
