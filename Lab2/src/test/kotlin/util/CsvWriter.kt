@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test
 import testing.TestValues
 import java.io.FileOutputStream
 import java.io.OutputStream
+import java.math.BigDecimal
 import java.math.RoundingMode
 
 class CsvWriter {
@@ -81,4 +82,13 @@ class CsvWriter {
         }
         writer.flush()
     }
+
+    companion object {
+        val EPS = arrayListOf<Double>(
+            0.000001,
+            0.0000001,
+            0.00000001
+        )
+    }
+
 }

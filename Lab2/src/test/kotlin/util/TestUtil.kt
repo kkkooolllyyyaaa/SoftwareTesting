@@ -17,6 +17,7 @@ fun assertAlmostEqual(actual: BigDecimal, expected: BigDecimal, eps: Double = 0.
         left.max(right),
     )
 }
+
 fun isBigDecimal(value: String?): Boolean {
     return formatBigDecimal(value) != null
 }
