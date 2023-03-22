@@ -61,7 +61,10 @@ class CsvWriter {
         TestValues.X.forEach {
             try {
                 val xBigDecimal = it.toBigDecimal().setScale(Constants.SCALE, RoundingMode.HALF_UP)
-                results.add(it.toString() to function.valueDecomposed(xBigDecimal).setScale(Constants.SCALE, RoundingMode.HALF_UP).toString())
+                results.add(
+                    it.toString() to function.valueDecomposed(xBigDecimal)
+                        .setScale(Constants.SCALE, RoundingMode.HALF_UP).toString()
+                )
             } catch (e: Exception) {
                 e.printStackTrace()
                 results.add(it.toString() to "NaN")
