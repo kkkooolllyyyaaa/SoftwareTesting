@@ -34,7 +34,7 @@ class FunctionTestXNotPositive {
 
     @Test
     fun `ODZ x = -pi div 2`() {
-        // -pi/2 - 2pk, k in N
+        // x = -pi/2 - 2pk, k in N
         var current = -Constants.Numbers.PI_DIV_2
         IntRange(0, 20).forEach {
             assertThrows<ArithmeticException> {
@@ -50,6 +50,27 @@ class FunctionTestXNotPositive {
             ln = ln,
             cosine = cosine,
             secant = MockFunction(secant),
+            log2 = log2,
+            log3 = log3,
+            log5 = log5,
+            log10 = log10,
+        )
+
+        IntRange(0, 100).forEach {
+            val x = Random.nextDouble(-10000.0, -0.000000001).toBigDecimal()
+            assertAlmostEqual(
+                actual = function.value(x),
+                expected = fn.valueDecomposed(x),
+            )
+        }
+    }
+
+    @Test
+    fun `mock cos test`() {
+        val fn = Function(
+            ln = ln,
+            cosine = MockFunction(cosine),
+            secant = secant,
             log2 = log2,
             log3 = log3,
             log5 = log5,
