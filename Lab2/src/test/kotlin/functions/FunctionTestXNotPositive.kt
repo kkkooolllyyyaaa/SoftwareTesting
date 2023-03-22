@@ -6,6 +6,7 @@ import functions.base.Sinus
 import functions.nonbase.Cosine
 import functions.nonbase.Logarithm
 import functions.nonbase.Secant
+import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import util.assertAlmostEqual
@@ -33,6 +34,7 @@ class FunctionTestXNotPositive {
     )
 
     @Test
+    @Order(1)
     fun `ODZ x = -pi div 2`() {
         // x = -pi/2 - 2pk, k in N
         var current = -Constants.Numbers.PI_DIV_2
@@ -45,6 +47,7 @@ class FunctionTestXNotPositive {
     }
 
     @Test
+    @Order(2)
     fun `mock sec test`() {
         val fn = Function(
             ln = ln,
@@ -66,6 +69,7 @@ class FunctionTestXNotPositive {
     }
 
     @Test
+    @Order(3)
     fun `mock cos test`() {
         val fn = Function(
             ln = ln,
@@ -82,6 +86,18 @@ class FunctionTestXNotPositive {
             assertAlmostEqual(
                 actual = function.value(x),
                 expected = fn.valueDecomposed(x),
+            )
+        }
+    }
+
+    @Test
+    @Order(4)
+    fun `integration test`() {
+        IntRange(0, 100).forEach {
+            val x = Random.nextDouble(-10000.0, -0.000000001).toBigDecimal()
+            assertAlmostEqual(
+                actual = function.value(x),
+                expected = function.valueDecomposed(x),
             )
         }
     }
