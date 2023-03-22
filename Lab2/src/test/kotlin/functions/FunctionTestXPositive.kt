@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import util.assertAlmostEqual
 import java.math.BigDecimal
+import java.math.RoundingMode
 import kotlin.random.Random
 
 class FunctionTestXPositive {
@@ -187,6 +188,7 @@ class FunctionTestXPositive {
 
         IntRange(2, 20).forEach {
             val x = Random.nextDouble(0.5, 100.0).toBigDecimal()
+            println("x=$x y=${function.value(x).setScale(3, RoundingMode.HALF_UP)}")
             assertAlmostEqual(
                 actual = function.value(x),
                 expected = fn.valueDecomposed(x)
@@ -325,5 +327,4 @@ class FunctionTestXPositive {
             )
         }
     }
-
 }
