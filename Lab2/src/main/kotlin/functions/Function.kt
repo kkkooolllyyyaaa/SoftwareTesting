@@ -3,9 +3,11 @@ package functions
 import functions.base.NaturalLogarithm
 import functions.nonbase.Cosine
 import functions.nonbase.Logarithm
+import functions.nonbase.Secant
 import java.math.BigDecimal
 
-class Function(private val naturalLogarithm: NaturalLogarithm, private val cosine: Cosine) : MathFunction {
+class Function(private val naturalLogarithm: NaturalLogarithm, private val cosine: Cosine, private val secant: Secant) :
+    MathFunction {
     private var log_2 = Logarithm(naturalLogarithm, BigDecimal(2))
     private var log_3 = Logarithm(naturalLogarithm, BigDecimal(3))
     private var log_5 = Logarithm(naturalLogarithm, BigDecimal(5))
@@ -17,8 +19,7 @@ class Function(private val naturalLogarithm: NaturalLogarithm, private val cosin
                 x
             )) * ((log_5.value(x) * naturalLogarithm.value(x)) * (naturalLogarithm.value(x) * log_3.value(x)))).pow(3)
         } else {
-            //TODO sec(x)
-            cosine.value(x) + BigDecimal(0)
+            cosine.value(x) + secant.value(x)
         }
     }
 
@@ -34,8 +35,7 @@ class Function(private val naturalLogarithm: NaturalLogarithm, private val cosin
                 eps
             )) * (naturalLogarithm.valueDecomposed(x, eps) * log_3.valueDecomposed(x, eps)))).pow(3)
         } else {
-            //TODO sec(x)
-            cosine.valueDecomposed(x, eps) + BigDecimal(0)
+            cosine.valueDecomposed(x, eps) + secant.valueDecomposed(x, eps)
         }
     }
 
@@ -51,8 +51,7 @@ class Function(private val naturalLogarithm: NaturalLogarithm, private val cosin
                 n
             )) * (naturalLogarithm.valueDecomposed(x, n) * log_3.valueDecomposed(x, n)))).pow(3)
         } else {
-            //TODO sec(x)
-            cosine.valueDecomposed(x, n) + BigDecimal(0)
+            cosine.valueDecomposed(x, n) + secant.valueDecomposed(x, n)
         }
     }
 
