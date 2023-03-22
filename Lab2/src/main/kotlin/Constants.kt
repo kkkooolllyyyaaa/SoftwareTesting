@@ -11,5 +11,6 @@ object Constants {
         val TEN = FIVE + FIVE
         val PI = Math.PI.toBigDecimal()
         val PI_DIV_2 = PI.divide(TWO, SCALE, RoundingMode.HALF_UP)
+        val PI_2 = PI + PI
     }
 }

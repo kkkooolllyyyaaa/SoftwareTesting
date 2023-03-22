@@ -9,7 +9,7 @@ class Secant(
     private val cosine: Cosine,
 ) : MathFunction {
     override fun value(x: BigDecimal): BigDecimal {
-        return 1.0.toBigDecimal().divide(cosine.value(x))
+        return 1.0.toBigDecimal().divide(cosine.value(x), Constants.SCALE, RoundingMode.HALF_UP)
     }
 
     override fun valueDecomposed(x: BigDecimal, eps: BigDecimal): BigDecimal {
