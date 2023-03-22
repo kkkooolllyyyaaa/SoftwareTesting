@@ -38,7 +38,7 @@ class FunctionTestXNotPositive {
         var current = -Constants.Numbers.PI_DIV_2
         IntRange(0, 20).forEach {
             assertThrows<ArithmeticException> {
-                function.value(current)
+                function.valueDecomposed(current)
             }
             current -= Constants.Numbers.PI_2
         }
