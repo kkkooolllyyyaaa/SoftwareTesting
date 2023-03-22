@@ -15,7 +15,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class CsvWriter {
-    private val update = true
+    private val update = false
     private val baseDir = "src/test/resources"
 
     @Test
