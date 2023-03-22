@@ -4,7 +4,10 @@ import functions.MathFunction
 import functions.base.NaturalLogarithm
 import java.math.BigDecimal
 
-class Logarithm(private val naturalLogarithm: NaturalLogarithm, val base: BigDecimal = BigDecimal(3)) :
+class Logarithm(
+    private val naturalLogarithm: NaturalLogarithm,
+    private val base: BigDecimal = BigDecimal(3),
+) :
     MathFunction {
     override fun value(x: BigDecimal): BigDecimal {
         return naturalLogarithm.value(x) / naturalLogarithm.value(base)
