@@ -7,7 +7,9 @@ import functions.nonbase.Logarithm
 import functions.nonbase.Secant
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import util.assertAlmostEqual
 import java.math.BigDecimal
+import kotlin.random.Random
 
 class FunctionTestXPositive {
     private val ln = NaturalLogarithm()
@@ -33,6 +35,90 @@ class FunctionTestXPositive {
     fun `ODZ x = 1`() {
         assertThrows<ArithmeticException> {
             function.value(BigDecimal.ONE)
+        }
+    }
+
+    @Test
+    fun `mock log 2 test`() {
+        val fn = Function(
+            ln = ln,
+            cosine = cosine,
+            secant = secant,
+            log2 = MockFunction(log2),
+            log3 = log3,
+            log5 = log5,
+            log10 = log10,
+        )
+
+        IntRange(2, 20).forEach {
+            val x = Random.nextDouble(0.5, 100.0).toBigDecimal()
+            assertAlmostEqual(
+                actual = function.value(x),
+                expected = fn.valueDecomposed(x)
+            )
+        }
+    }
+
+    @Test
+    fun `mock log 3 test`() {
+        val fn = Function(
+            ln = ln,
+            cosine = cosine,
+            secant = secant,
+            log2 = log2,
+            log3 = MockFunction(log3),
+            log5 = log5,
+            log10 = log10,
+        )
+
+        IntRange(2, 20).forEach {
+            val x = Random.nextDouble(0.5, 100.0).toBigDecimal()
+            assertAlmostEqual(
+                actual = function.value(x),
+                expected = fn.valueDecomposed(x)
+            )
+        }
+    }
+
+    @Test
+    fun `mock log 5 test`() {
+        val fn = Function(
+            ln = ln,
+            cosine = cosine,
+            secant = secant,
+            log2 = log2,
+            log3 = log3,
+            log5 = MockFunction(log5),
+            log10 = log10,
+        )
+
+        IntRange(2, 20).forEach {
+            val x = Random.nextDouble(0.5, 100.0).toBigDecimal()
+            assertAlmostEqual(
+                actual = function.value(x),
+                expected = fn.valueDecomposed(x)
+            )
+        }
+    }
+
+    @Test
+    fun `mock log 10 test`() {
+        val fn = Function(
+            ln = ln,
+            cosine = cosine,
+            secant = secant,
+            log2 = log2,
+            log3 = log3,
+            log5 = log5,
+            log10 = MockFunction(log10),
+        )
+
+        IntRange(2, 20).forEach {
+            val x = Random.nextDouble(0.5, 100.0).toBigDecimal()
+            assertAlmostEqual(
+                actual = function.value(x),
+                expected = fn.valueDecomposed(x)
+            )
         }
     }
 }
